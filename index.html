@@ -135,7 +135,9 @@
     width: .7rem; height: .7rem; border-radius: 50% 50% 50% 0; background: var(--caramel); }
   .lib .go { margin-top: auto; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 4px; }
   .lib .go:hover { color: var(--cherry); }
-  .lib .dl { margin-top: .5rem; font-weight: 400; }
+  .lib .downloads { margin: .6rem 0 0; font-size: .98rem; }
+  .lib .downloads a { font-weight: 700; text-underline-offset: 3px; }
+  .lib .downloads a:hover { color: var(--cherry); }
   .lib.brewing { border-style: dashed; box-shadow: none; background: transparent; color: var(--espresso); }
   .lib.brewing .go { text-decoration: none; color: var(--espresso-soft); font-weight: 400; font-style: italic; }
 
@@ -259,7 +261,8 @@
           <li>Error messages in plain English</li>
         </ul>
         <a class="go" href="/GooeyGUI-docs/">Read the GooeyGUI docs</a>
-        <a class="go dl" href="/GooeyGUI-docs/GooeyGUI.jar" download>Download GooeyGUI.jar</a>
+        <p class="downloads">Download <a href="/GooeyGUI-docs/GooeyGUI.jar" download>GooeyGUI.jar</a>
+          and <a href="/GooeyGUI-docs/GooeyGUI-sources.jar" download>GooeyGUI-sources.jar</a></p>
       </article>
 
       <article class="lib">
@@ -301,11 +304,11 @@
       <ol class="steps">
         <li>
           <h3>Grab the jar</h3>
-          <p>Download the library’s <code>.jar</code> file from its card on this page.</p>
+          <p>Download both <code>.jar</code> files from the library’s card on this page.</p>
         </li>
         <li>
           <h3>Drop it in <code>lib</code></h3>
-          <p>Put the jar in your project’s <code>lib</code> folder. VS Code picks it up automatically.</p>
+          <p>Put both jars in your project’s <code>lib</code> folder. VS Code picks them up automatically and shows the docs when you hover over GooeyGUI code.</p>
         </li>
         <li>
           <h3>Import and run</h3>
