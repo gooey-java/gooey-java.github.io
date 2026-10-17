@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gooey Java · Fresh-brewed Java libraries for students</title>
+<meta name="description" content="Friendly Java libraries for AP Computer Science A students: GooeyGUI, GooeyGame, GooeyNet and more.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #c6ecd9;
+    --mint-deep: #9fd9bd;
+    --espresso: #3a2216;
+    --espresso-soft: #6b4a38;
+    --caramel: #eba43a;
+    --caramel-dark: #c47f17;
+    --cherry: #d9434f;
+    --card: #fffdf7;
+    --halo: #a9e0c5;
+    --ink-on-card: #3a2216;
+    --display: "Baloo 2", "Trebuchet MS", "Verdana", sans-serif;
+    --body: "Atkinson Hyperlegible", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --mint: #23150e;
+      --mint-deep: #2f1d13;
+      --espresso: #d8f2e5;
+      --espresso-soft: #a9cdbb;
+      --card: #3a2519;
+      --halo: #cdeedd;
+      --ink-on-card: #f3e8d8;
+      --cherry: #ef6b75;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --mint: #23150e;
+    --mint-deep: #2f1d13;
+    --espresso: #d8f2e5;
+    --espresso-soft: #a9cdbb;
+    --card: #3a2519;
+    --halo: #cdeedd;
+    --ink-on-card: #f3e8d8;
+    --cherry: #ef6b75;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--mint);
+    color: var(--espresso);
+    font-family: var(--body);
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--cherry); outline-offset: 3px; border-radius: 6px; }
+  img, svg { max-width: 100%; }
+  .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* ---------- The goo: one caramel drip across the top ---------- */
+  .goo { display: block; width: 100%; height: clamp(70px, 10vw, 120px); }
+  .goo path { fill: var(--caramel); }
+
+  /* ---------- Nav ---------- */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap; padding-block: .5rem;
+  }
+  .brand { display: flex; align-items: center; gap: .5rem; text-decoration: none;
+    font-family: var(--display); font-weight: 800; font-size: 1.35rem; }
+  .brand svg { width: 42px; height: 42px; }
+  nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+  nav ul a { text-decoration: none; font-weight: 700; }
+  nav ul a:hover { text-decoration: underline wavy var(--caramel); text-underline-offset: 6px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    display: grid; grid-template-columns: 1.1fr .9fr; align-items: center;
+    gap: 2rem; padding-block: 2.5rem 4rem;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(3.2rem, 9vw, 6.5rem); line-height: .9; margin: 0 0 1rem;
+    letter-spacing: -.02em;
+  }
+  .hero h1 span { display: block; }
+  .hero .tagline { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; margin: 0 0 .75rem; }
+  .hero p { max-width: 34rem; margin: 0 0 1.75rem; color: var(--espresso-soft); }
+  .buttons { display: flex; flex-wrap: wrap; gap: .9rem; }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 700;
+    padding: .8rem 1.4rem; border-radius: 999px; border: 3px solid var(--espresso);
+  }
+  .btn-main { background: var(--cherry); color: #fff; border-color: var(--cherry); }
+  .btn-main:hover { filter: brightness(1.08); }
+  .btn-ghost:hover { background: var(--mint-deep); }
+  .mascot { justify-self: center; width: min(380px, 100%); aspect-ratio: 1;
+    border-radius: 50%; background: var(--halo); padding: 9%; }
+  .mascot svg { width: 100%; height: auto; display: block; }
+
+  /* ---------- Menu board ---------- */
+  .menu { padding-block: 1rem 4rem; }
+  .section-title {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0 0 .4rem;
+  }
+  .section-sub { margin: 0 0 2rem; color: var(--espresso-soft); max-width: 40rem; }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.5rem;
+  }
+  .lib {
+    background: var(--card); color: var(--ink-on-card);
+    border: 3px solid var(--espresso); border-radius: 22px 22px 22px 6px;
+    padding: 1.5rem 1.5rem 1.4rem; display: flex; flex-direction: column;
+    box-shadow: 6px 6px 0 var(--espresso);
+  }
+  .lib .size { font-family: var(--display); font-weight: 600; font-size: 1rem; margin: 0;
+    color: var(--caramel-dark); }
+  :root[data-theme="dark"] .lib .size { color: var(--caramel); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lib .size { color: var(--caramel); } }
+  .lib h3 { font-family: var(--display); font-weight: 800; font-size: 2rem; line-height: 1.1; margin: .1rem 0 .6rem; }
+  .lib p { margin: 0 0 1rem; font-size: 1.02rem; }
+  .lib .ingredients { margin: 0 0 1.25rem; padding: 0; list-style: none; font-size: .98rem; }
+  .lib .ingredients li { padding-left: 1.4rem; position: relative; }
+  .lib .ingredients li::before { content: ""; position: absolute; left: 0; top: .55em;
+    width: .7rem; height: .7rem; border-radius: 50% 50% 50% 0; background: var(--caramel); }
+  .lib .go { margin-top: auto; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .lib .go:hover { color: var(--cherry); }
+  .lib .dl { margin-top: .5rem; font-weight: 400; }
+  .lib.brewing { border-style: dashed; box-shadow: none; background: transparent; color: var(--espresso); }
+  .lib.brewing .go { text-decoration: none; color: var(--espresso-soft); font-weight: 400; font-style: italic; }
+
+  /* ---------- Get started ---------- */
+  .start { background: var(--espresso); color: var(--mint); padding-block: 3.5rem 4rem; }
+  :root[data-theme="dark"] .start { background: var(--mint-deep); color: var(--espresso); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .start { background: var(--mint-deep); color: var(--espresso); } }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 2rem 0 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
+  .steps li { counter-increment: step; }
+  .steps li::before {
+    content: counter(step); display: grid; place-items: center;
+    width: 3rem; height: 3rem; margin-bottom: .75rem;
+    border-radius: 50% 50% 50% 12%; background: var(--caramel); color: #3a2216;
+    font-family: var(--display); font-weight: 800; font-size: 1.6rem;
+  }
+  .steps h3 { font-family: var(--display); font-weight: 600; font-size: 1.5rem; margin: 0 0 .25rem; }
+  .steps p { margin: 0; opacity: .9; }
+  code { font-family: "Cascadia Code", Consolas, "Courier New", monospace; font-size: .95em;
+    background: rgba(235,164,58,.22); padding: .1em .35em; border-radius: 5px; }
+  .code-block { overflow-x: auto; margin-top: 2.25rem; background: rgba(0,0,0,.25);
+    border-radius: 14px; padding: 1.1rem 1.3rem; }
+  .code-block pre { margin: 0; font-family: "Cascadia Code", Consolas, "Courier New", monospace; font-size: 1rem; line-height: 1.5; }
+  .code-block .c { color: var(--caramel); }
+
+  footer { padding-block: 2.5rem; text-align: center; color: var(--espresso-soft); font-size: 1rem; }
+  footer p { margin: .25rem 0; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 1rem; }
+    .mascot { order: -1; width: min(240px, 70%); }
+    nav ul { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Caramel goo dripping from the top of the page -->
+<svg class="goo" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 0 H1200 V38
+    C1170 38 1165 52 1160 70 C1156 86 1140 86 1137 70 C1133 52 1120 40 1090 40
+    C1040 40 1030 44 1022 62 C1015 100 990 104 985 72 C980 46 960 40 920 40
+    C860 40 850 42 845 56 C840 72 826 72 822 56 C818 42 800 38 760 38
+    C700 38 690 44 684 66 C678 112 650 114 646 74 C642 46 620 40 580 40
+    C520 40 512 44 506 58 C500 76 484 76 480 58 C476 44 460 40 420 40
+    C360 40 350 46 344 70 C337 98 314 98 310 70 C306 46 290 40 250 40
+    C190 40 182 44 176 60 C170 80 152 80 148 60 C144 44 128 38 90 38
+    C40 38 34 42 28 60 C22 84 6 82 3 60 C1 46 0 40 0 38 Z"/>
+</svg>
+
+<div class="wrap">
+  <nav aria-label="Main">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#mug"/></svg>
+      Gooey Java
+    </a>
+    <ul>
+      <li><a href="#menu">Libraries</a></li>
+      <li><a href="#start">Get started</a></li>
+      <li><a href="https://github.com/gooey-java">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <h1><span>Gooey</span><span>Java</span></h1>
+      <p class="tagline">Java libraries that go down smooth.</p>
+      <p>Friendly wrappers for AP Computer Science A students. Build windows, games and apps that talk to each other, without the bitter aftertaste of boilerplate.</p>
+      <div class="buttons">
+        <a class="btn btn-main" href="#menu">See what’s brewing</a>
+        <a class="btn btn-ghost" href="#start">Get started</a>
+      </div>
+    </div>
+    <div class="mascot">
+      <svg viewBox="0 0 200 200" role="img" aria-labelledby="logoTitle">
+        <title id="logoTitle">Gooey Java logo: a smiling mug with caramel goo dripping over the rim and steam shaped like curly braces</title>
+        <defs>
+          <g id="mug">
+            <!-- steam: Java's curly braces -->
+            <text x="70" y="52" font-family="Consolas, 'Courier New', monospace" font-size="44" font-weight="700" fill="#6b4a38" opacity=".75">{</text>
+            <text x="106" y="44" font-family="Consolas, 'Courier New', monospace" font-size="44" font-weight="700" fill="#6b4a38" opacity=".75">}</text>
+            <!-- handle -->
+            <path d="M150 92 c34 -4 40 54 -4 60" fill="none" stroke="#3a2216" stroke-width="13" stroke-linecap="round"/>
+            <!-- mug body -->
+            <path d="M40 72 H160 L152 160 Q150 182 128 182 H72 Q50 182 48 160 Z" fill="#d9434f" stroke="#3a2216" stroke-width="6" stroke-linejoin="round"/>
+            <!-- caramel goo over the rim -->
+            <path d="M34 70 Q34 62 44 62 H156 Q166 62 166 70 V82
+              Q160 84 158 96 Q156 112 148 112 Q140 112 140 96 Q139 86 130 86
+              Q122 86 121 100 Q120 128 108 128 Q96 128 96 104 Q96 88 86 88
+              Q76 88 75 98 Q74 108 66 108 Q58 108 57 96 Q56 84 46 84 Q38 84 34 80 Z"
+              fill="#eba43a" stroke="#3a2216" stroke-width="6" stroke-linejoin="round"/>
+            <ellipse cx="128" cy="70" rx="14" ry="3.5" fill="#fff" opacity=".55"/>
+            <!-- face -->
+            <circle cx="80" cy="146" r="6" fill="#3a2216"/>
+            <circle cx="120" cy="146" r="6" fill="#3a2216"/>
+            <path d="M88 158 Q100 170 112 158" fill="none" stroke="#3a2216" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="70" cy="158" r="5" fill="#f28c95"/>
+            <circle cx="130" cy="158" r="5" fill="#f28c95"/>
+          </g>
+        </defs>
+        <use href="#mug"/>
+      </svg>
+    </div>
+  </header>
+</div>
+
+<main>
+  <section class="menu wrap" id="menu" aria-labelledby="menuTitle">
+    <h2 class="section-title" id="menuTitle">Today’s menu</h2>
+    <p class="section-sub">Each library hides the messy parts of Java and keeps the good stuff: real classes, real objects, real object-oriented design. Pick one to read its docs.</p>
+
+    <div class="menu-grid">
+      <!-- To add a library: copy one <article> block, change the text and link. -->
+      <article class="lib">
+        <p class="size">House blend</p>
+        <h3>GooeyGUI</h3>
+        <p>Windows, buttons and widgets without wrestling Swing.</p>
+        <ul class="ingredients">
+          <li>Buttons, checkboxes, sliders</li>
+          <li>Text fields, dropdowns, tabs</li>
+          <li>Error messages in plain English</li>
+        </ul>
+        <a class="go" href="/GooeyGUI-docs/">Read the GooeyGUI docs</a>
+        <a class="go dl" href="/GooeyGUI-docs/GooeyGUI.jar" download>Download GooeyGUI.jar</a>
+      </article>
+
+      <article class="lib">
+        <p class="size">Double shot</p>
+        <h3>GooeyGame</h3>
+        <p>Make real 2D games with <code>setup()</code>, <code>update()</code> and <code>draw()</code>.</p>
+        <ul class="ingredients">
+          <li>Keyboard and mouse input</li>
+          <li>Sprites, sound and music</li>
+          <li>Screens when you’re ready</li>
+        </ul>
+        <a class="go" href="/GooeyGame-docs/">Read the GooeyGame docs</a>
+      </article>
+
+      <article class="lib">
+        <p class="size">Pour-over for the whole class</p>
+        <h3>GooeyNet</h3>
+        <p>Send messages between classmates’ computers and build apps that talk to each other.</p>
+        <ul class="ingredients">
+          <li>Chat apps and multiplayer games</li>
+          <li>Runs through a class server</li>
+          <li>No sockets to set up</li>
+        </ul>
+        <a class="go" href="/GooeyNet-docs/">Read the GooeyNet docs</a>
+      </article>
+
+      <article class="lib brewing">
+        <p class="size">Still brewing</p>
+        <h3>More soon</h3>
+        <p>New libraries are percolating. Check back next semester.</p>
+        <span class="go">Coming soon</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="start" id="start" aria-labelledby="startTitle">
+    <div class="wrap">
+      <h2 class="section-title" id="startTitle">Get started in three sips</h2>
+      <ol class="steps">
+        <li>
+          <h3>Grab the jar</h3>
+          <p>Download the library’s <code>.jar</code> file from its card on this page.</p>
+        </li>
+        <li>
+          <h3>Drop it in <code>lib</code></h3>
+          <p>Put the jar in your project’s <code>lib</code> folder. VS Code picks it up automatically.</p>
+        </li>
+        <li>
+          <h3>Import and run</h3>
+          <p>Add the import at the top of your file, write your code and hit Run.</p>
+        </li>
+      </ol>
+      <div class="code-block">
+<pre><span class="c">// The first line of every GooeyGUI program</span>
+import gooeygui.*;</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Brewed by a CS teacher for AP Computer Science A students.</p>
+  <p>No beans were harmed in the making of these libraries.</p>
+</footer>
+
+</body>
+</html>
