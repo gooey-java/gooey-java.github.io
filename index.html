@@ -9,169 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --mint: #c6ecd9;
-    --mint-deep: #9fd9bd;
-    --espresso: #3a2216;
-    --espresso-soft: #6b4a38;
-    --caramel: #eba43a;
-    --caramel-dark: #c47f17;
-    --cherry: #d9434f;
-    --card: #fffdf7;
-    --halo: #a9e0c5;
-    --ink-on-card: #3a2216;
-    --display: "Baloo 2", "Trebuchet MS", "Verdana", sans-serif;
-    --body: "Atkinson Hyperlegible", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --mint: #23150e;
-      --mint-deep: #2f1d13;
-      --espresso: #d8f2e5;
-      --espresso-soft: #a9cdbb;
-      --card: #3a2519;
-      --halo: #cdeedd;
-      --ink-on-card: #f3e8d8;
-      --cherry: #ef6b75;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --mint: #23150e;
-    --mint-deep: #2f1d13;
-    --espresso: #d8f2e5;
-    --espresso-soft: #a9cdbb;
-    --card: #3a2519;
-    --halo: #cdeedd;
-    --ink-on-card: #f3e8d8;
-    --cherry: #ef6b75;
-    color-scheme: dark;
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body {
-    margin: 0;
-    background: var(--mint);
-    color: var(--espresso);
-    font-family: var(--body);
-    font-size: 1.125rem;
-    line-height: 1.6;
-  }
-  a { color: inherit; }
-  :focus-visible { outline: 3px solid var(--cherry); outline-offset: 3px; border-radius: 6px; }
-  img, svg { max-width: 100%; }
-  .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
-
-  /* ---------- The goo: one caramel drip across the top ---------- */
-  .goo { display: block; width: 100%; height: clamp(70px, 10vw, 120px); }
-  .goo path { fill: var(--caramel); }
-
-  /* ---------- Nav ---------- */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 1rem; flex-wrap: wrap; padding-block: .5rem;
-  }
-  .brand { display: flex; align-items: center; gap: .5rem; text-decoration: none;
-    font-family: var(--display); font-weight: 800; font-size: 1.35rem; }
-  .brand svg { width: 42px; height: 42px; }
-  nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
-  nav ul a { text-decoration: none; font-weight: 700; }
-  nav ul a:hover { text-decoration: underline wavy var(--caramel); text-underline-offset: 6px; }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    display: grid; grid-template-columns: 1.1fr .9fr; align-items: center;
-    gap: 2rem; padding-block: 2.5rem 4rem;
-  }
-  .hero h1 {
-    font-family: var(--display); font-weight: 800;
-    font-size: clamp(3.2rem, 9vw, 6.5rem); line-height: .9; margin: 0 0 1rem;
-    letter-spacing: -.02em;
-  }
-  .hero h1 span { display: block; }
-  .hero .tagline { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; margin: 0 0 .75rem; }
-  .hero p { max-width: 34rem; margin: 0 0 1.75rem; color: var(--espresso-soft); }
-  .buttons { display: flex; flex-wrap: wrap; gap: .9rem; }
-  .btn {
-    display: inline-block; text-decoration: none; font-weight: 700;
-    padding: .8rem 1.4rem; border-radius: 999px; border: 3px solid var(--espresso);
-  }
-  .btn-main { background: var(--cherry); color: #fff; border-color: var(--cherry); }
-  .btn-main:hover { filter: brightness(1.08); }
-  .btn-ghost:hover { background: var(--mint-deep); }
-  .mascot { justify-self: center; width: min(380px, 100%); aspect-ratio: 1;
-    border-radius: 50%; background: var(--halo); padding: 9%; }
-  .mascot svg { width: 100%; height: auto; display: block; }
-
-  /* ---------- Menu board ---------- */
-  .menu { padding-block: 1rem 4rem; }
-  .section-title {
-    font-family: var(--display); font-weight: 800;
-    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0 0 .4rem;
-  }
-  .section-sub { margin: 0 0 2rem; color: var(--espresso-soft); max-width: 40rem; }
-  .menu-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem;
-  }
-  .lib {
-    background: var(--card); color: var(--ink-on-card);
-    border: 3px solid var(--espresso); border-radius: 22px 22px 22px 6px;
-    padding: 1.5rem 1.5rem 1.4rem; display: flex; flex-direction: column;
-    box-shadow: 6px 6px 0 var(--espresso);
-  }
-  .lib .size { font-family: var(--display); font-weight: 600; font-size: 1rem; margin: 0;
-    color: var(--caramel-dark); }
-  :root[data-theme="dark"] .lib .size { color: var(--caramel); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lib .size { color: var(--caramel); } }
-  .lib h3 { font-family: var(--display); font-weight: 800; font-size: 2rem; line-height: 1.1; margin: .1rem 0 .6rem; }
-  .lib p { margin: 0 0 1rem; font-size: 1.02rem; }
-  .lib .ingredients { margin: 0 0 1.25rem; padding: 0; list-style: none; font-size: .98rem; }
-  .lib .ingredients li { padding-left: 1.4rem; position: relative; }
-  .lib .ingredients li::before { content: ""; position: absolute; left: 0; top: .55em;
-    width: .7rem; height: .7rem; border-radius: 50% 50% 50% 0; background: var(--caramel); }
-  .lib .go { margin-top: auto; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-  .lib .go:hover { color: var(--cherry); }
-  .lib .downloads { margin: .6rem 0 0; font-size: .98rem; }
-  .lib .downloads a { font-weight: 700; text-underline-offset: 3px; }
-  .lib .downloads a:hover { color: var(--cherry); }
-  .lib.brewing { border-style: dashed; box-shadow: none; background: transparent; color: var(--espresso); }
-  .lib.brewing .go { text-decoration: none; color: var(--espresso-soft); font-weight: 400; font-style: italic; }
-
-  /* ---------- Get started ---------- */
-  .start { background: var(--espresso); color: var(--mint); padding-block: 3.5rem 4rem; }
-  :root[data-theme="dark"] .start { background: var(--mint-deep); color: var(--espresso); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .start { background: var(--mint-deep); color: var(--espresso); } }
-  .steps { list-style: none; counter-reset: step; padding: 0; margin: 2rem 0 0;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
-  .steps li { counter-increment: step; }
-  .steps li::before {
-    content: counter(step); display: grid; place-items: center;
-    width: 3rem; height: 3rem; margin-bottom: .75rem;
-    border-radius: 50% 50% 50% 12%; background: var(--caramel); color: #3a2216;
-    font-family: var(--display); font-weight: 800; font-size: 1.6rem;
-  }
-  .steps h3 { font-family: var(--display); font-weight: 600; font-size: 1.5rem; margin: 0 0 .25rem; }
-  .steps p { margin: 0; opacity: .9; }
-  code { font-family: "Cascadia Code", Consolas, "Courier New", monospace; font-size: .95em;
-    background: rgba(235,164,58,.22); padding: .1em .35em; border-radius: 5px; }
-  .code-block { overflow-x: auto; margin-top: 2.25rem; background: rgba(0,0,0,.25);
-    border-radius: 14px; padding: 1.1rem 1.3rem; }
-  .code-block pre { margin: 0; font-family: "Cascadia Code", Consolas, "Courier New", monospace; font-size: 1rem; line-height: 1.5; }
-  .code-block .c { color: var(--caramel); }
-
-  footer { padding-block: 2.5rem; text-align: center; color: var(--espresso-soft); font-size: 1rem; }
-  footer p { margin: .25rem 0; }
-
-  @media (max-width: 760px) {
-    .hero { grid-template-columns: 1fr; padding-top: 1rem; }
-    .mascot { order: -1; width: min(240px, 70%); }
-    nav ul { gap: 1rem; }
-  }
-</style>
+<link rel="stylesheet" href="gooey.css">
 </head>
 <body>
 
@@ -247,7 +85,7 @@
 <main>
   <section class="menu wrap" id="menu" aria-labelledby="menuTitle">
     <h2 class="section-title" id="menuTitle">Today’s menu</h2>
-    <p class="section-sub">Each library hides the messy parts of Java and keeps the good stuff: real classes, real objects, real object-oriented design. Pick one to read its docs.</p>
+    <p class="section-sub">Each library hides the messy parts of Java and keeps the good stuff: real classes, real objects, real object-oriented design. Pick one to see what it can do.</p>
 
     <div class="menu-grid">
       <!-- To add a library: copy one <article> block, change the text and link. -->
@@ -260,9 +98,9 @@
           <li>Pick up paint from buckets</li>
           <li>Your first Java project, in VS Code</li>
         </ul>
-        <a class="go" href="/GooeyPainter-docs/">Read the GooeyPainter docs</a>
-        <p class="downloads">Download <a href="/GooeyPainter-docs/GooeyPainter.jar" download>GooeyPainter.jar</a>
-          and <a href="/GooeyPainter-docs/GooeyPainter-sources.jar" download>GooeyPainter-sources.jar</a></p>
+        <a class="go" href="/GooeyPainter/">See what GooeyPainter can do</a>
+        <p class="downloads"><a href="/GooeyPainter/docs/">Read the docs</a> or download
+          <a href="/GooeyPainter/GooeyPainter.jar" download>GooeyPainter.jar</a> and <a href="/GooeyPainter/GooeyPainter-sources.jar" download>GooeyPainter-sources.jar</a></p>
       </article>
 
       <article class="lib">
@@ -274,9 +112,9 @@
           <li>Text fields, dropdowns, tabs</li>
           <li>Error messages in plain English</li>
         </ul>
-        <a class="go" href="/GooeyGUI-docs/">Read the GooeyGUI docs</a>
-        <p class="downloads">Download <a href="/GooeyGUI-docs/GooeyGUI.jar" download>GooeyGUI.jar</a>
-          and <a href="/GooeyGUI-docs/GooeyGUI-sources.jar" download>GooeyGUI-sources.jar</a></p>
+        <a class="go" href="/GooeyGUI/">See what GooeyGUI can do</a>
+        <p class="downloads"><a href="/GooeyGUI/docs/">Read the docs</a> or download
+          <a href="/GooeyGUI/GooeyGUI.jar" download>GooeyGUI.jar</a> and <a href="/GooeyGUI/GooeyGUI-sources.jar" download>GooeyGUI-sources.jar</a></p>
       </article>
 
       <article class="lib">
@@ -288,9 +126,9 @@
           <li>Sprites, sound and music</li>
           <li>Screens when you’re ready</li>
         </ul>
-        <a class="go" href="/GooeyGame-docs/">Read the GooeyGame docs</a>
-        <p class="downloads">Download <a href="/GooeyGame-docs/GooeyGame.jar" download>GooeyGame.jar</a>
-          and <a href="/GooeyGame-docs/GooeyGame-sources.jar" download>GooeyGame-sources.jar</a></p>
+        <a class="go" href="/GooeyGame/">See what GooeyGame can do</a>
+        <p class="downloads"><a href="/GooeyGame/docs/">Read the docs</a> or download
+          <a href="/GooeyGame/GooeyGame.jar" download>GooeyGame.jar</a> and <a href="/GooeyGame/GooeyGame-sources.jar" download>GooeyGame-sources.jar</a></p>
       </article>
 
       <article class="lib">
@@ -302,7 +140,8 @@
           <li>Runs through a class server</li>
           <li>No sockets to set up</li>
         </ul>
-        <a class="go" href="/GooeyNet-docs/">Read the GooeyNet docs</a>
+        <a class="go" href="/GooeyNet/">See what’s brewing</a>
+        <p class="downloads">In development. Downloads arrive when it’s ready.</p>
       </article>
 
       <article class="lib brewing">
